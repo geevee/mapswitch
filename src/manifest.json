@@ -1,0 +1,17 @@
+{
+  "manifest_version": 2,
+
+  "name": "Mapswitch",
+  "description": "TODO",
+  "version": "0.0",
+
+  "background": { "scripts": ["lib/kotlin.js", "mapswitch.js"] },
+
+  "page_action": {
+    "default_name": "Switch map",
+    "default_icon": "dummy-icon.png"
+  },
+  "permissions": [
+    "tabs"
+  ]
+}
