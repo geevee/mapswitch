@@ -15,7 +15,8 @@ fun getApplicableService(url: String): MapService? {
 fun MapService.getOther(): MapService {
     return when(this) {
         GoogleMaps -> YandexMaps
-        YandexMaps -> GoogleMaps
+        YandexMaps -> OpenStreetMap
+        OpenStreetMap -> GoogleMaps
         else -> throw Exception("Unexpected map service")
     }
 }
@@ -64,5 +65,26 @@ object YandexMaps: MapService {
     }
 }
 
+object OpenStreetMap: MapService {
+    override fun detect(url: String): Boolean {
+        return "openstreetmap.org" in url // TODO not very smart detector
+    }
+
+    override fun extractCoordinates(url: String): Coordinates {
+        val match = Regex("#map=([\\d.]+)\\/([\\d.]+)\\/([\\d.]+)").matchAll(url).first()
+        val latitude = match.groups[2]!!.value
+        val longitude = match.groups[3]!!.value
+        val zoomLevel = match.groups[1]!!.value
+
+        return Coordinates(latitude, longitude, zoomLevel)
+    }
+
+    override fun getUrl(coordinates: Coordinates): String {
+        return with(coordinates) {
+            "http://www.openstreetmap.org/#map=$zoomLevel/$latitude/$longitude"
+        }
+    }
+}
+
 // FIXME: property is here because of KT-4144: objects can be used only after they are declared
-val services = listOf(GoogleMaps, YandexMaps)
+val services = listOf(GoogleMaps, YandexMaps, OpenStreetMap)
