@@ -1,3 +1,5 @@
+package ru.geevee.mapswitch
+
 import kotlin.browser.window
 import kotlin.text.Regex
 
