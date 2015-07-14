@@ -9,7 +9,7 @@ fun main(args: Array<String>) {
     chrome.tabs.onUpdated.addListener {
         tabId, info, tab ->
         val url: String = tab.url
-        if ("maps" in url && "google" in url) {
+        if (getApplicableService(url) != null) {
             chrome.pageAction.show(tabId)
         }
         else {
@@ -19,21 +19,14 @@ fun main(args: Array<String>) {
 
     chrome.pageAction.onClicked.addListener {
         tab ->
-        @suppress("NAME_SHADOWING")
         val url: String = tab.url
 
-        val match = Regex("@([\\d.]+),([\\d.]+),([\\d.]+)z").matchAll(url).firstOrNull()
-        if (match == null) {
-            window.alert("no match :(")
-        } else {
-            val latitude = match.groups[1]!!.value
-            val longitude = match.groups[2]!!.value
-            val zoomLevel = match.groups[3]!!.value
+        val mapService = getApplicableService(url)!!
+        val coordinates = mapService.extractCoordinates(url)
+        val otherService = mapService.getOther()
+        val newUrl = otherService.getUrl(coordinates)
 
-            val newUrl = "https://maps.yandex.ru/?ll=$longitude%2C$latitude&z=$zoomLevel"
-
-            // TODO
-            js("chrome.tabs.update(tab.id, {url: newUrl});")
-        }
+        // TODO
+        js("chrome.tabs.update(tab.id, {url: newUrl});")
     }
 }
