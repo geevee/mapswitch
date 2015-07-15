@@ -2,7 +2,7 @@ package ru.geevee.mapswitch.popup
 
 import ru.geevee.mapswitch.Coordinates
 import ru.geevee.mapswitch.MapService
-import ru.geevee.mapswitch.getApplicableService
+import ru.geevee.mapswitch.detectServiceAndCoordinates
 import ru.geevee.mapswitch.services
 import kotlin.browser.document
 import kotlin.browser.window
@@ -17,11 +17,11 @@ fun main(args: Array<String>) {
             val tab = tabs[0]
             val currentUrl = tab.url
 
-            val mapService = getApplicableService(currentUrl)
-            if (mapService == null) {
+            val mapServiceAndCoordinates = detectServiceAndCoordinates(currentUrl)
+            if (mapServiceAndCoordinates == null) {
                 window.close()
             } else {
-                val coordinates = mapService.extractCoordinates(currentUrl)
+                val (mapService, coordinates) = mapServiceAndCoordinates
                 generateServicesList(coordinates, tab.id, services.filter { it != mapService })
             }
         }
