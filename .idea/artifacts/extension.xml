@@ -1,0 +1,9 @@
+<component name="ArtifactManager">
+  <artifact build-on-make="true" name="extension">
+    <output-path>$PROJECT_DIR$/out/artifacts/extension</output-path>
+    <root id="root">
+      <element id="module-output" name="background" />
+      <element id="module-output" name="mapswitch" />
+    </root>
+  </artifact>
+</component>

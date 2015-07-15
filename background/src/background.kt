@@ -1,5 +1,7 @@
-package ru.geevee.mapswitch
+package ru.geevee.mapswitch.background
 
+import ru.geevee.mapswitch.getApplicableService
+import ru.geevee.mapswitch.getOther
 import kotlin.browser.window
 import kotlin.text.Regex
 

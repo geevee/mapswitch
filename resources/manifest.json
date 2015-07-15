@@ -5,7 +5,7 @@
   "description": "TODO",
   "version": "0.0",
 
-  "background": { "scripts": ["lib/kotlin.js", "mapswitch.js"] },
+  "background": { "scripts": ["lib/kotlin.js", "mapswitch.js", "background.js"] },
 
   "page_action": {
     "default_name": "Switch map",
