@@ -3,6 +3,7 @@ package ru.geevee.mapswitch
 import kotlin.text.Regex
 
 interface MapService {
+    val name: String
     fun detect(url: String): Boolean
     fun extractCoordinates(url: String): Coordinates
     fun getUrl(coordinates: Coordinates): String
@@ -12,19 +13,11 @@ fun getApplicableService(url: String): MapService? {
     return services.firstOrNull { it.detect(url) }
 }
 
-fun MapService.getOther(): MapService {
-    return when(this) {
-        GoogleMaps -> YandexMaps
-        YandexMaps -> OpenStreetMap
-        OpenStreetMap -> Wikimapia
-        Wikimapia -> GoogleMaps
-        else -> throw Exception("Unexpected map service")
-    }
-}
-
-
 
 object GoogleMaps: MapService {
+    override val name: String
+        get() = "Google"
+
     override fun detect(url: String): Boolean {
         return "maps" in url && "google" in url // TODO not very smart detector
     }
@@ -46,6 +39,9 @@ object GoogleMaps: MapService {
 }
 
 object YandexMaps: MapService {
+    override val name: String
+        get() = "Yandex"
+
     override fun detect(url: String): Boolean {
         return "maps" in url && "yandex" in url // TODO not very smart detector
     }
@@ -67,6 +63,9 @@ object YandexMaps: MapService {
 }
 
 object OpenStreetMap: MapService {
+    override val name: String
+        get() = "OpenStreetMap"
+
     override fun detect(url: String): Boolean {
         return "openstreetmap.org" in url // TODO not very smart detector
     }
@@ -88,6 +87,9 @@ object OpenStreetMap: MapService {
 }
 
 object Wikimapia: MapService {
+    override val name: String
+        get() = "Wikimapia"
+
     override fun detect(url: String): Boolean {
         return "wikimapia.org" in url // TODO not very smart detector
     }

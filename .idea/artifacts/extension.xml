@@ -4,6 +4,7 @@
     <root id="root">
       <element id="module-output" name="background" />
       <element id="module-output" name="mapswitch" />
+      <element id="module-output" name="popup" />
     </root>
   </artifact>
 </component>

@@ -9,7 +9,8 @@
 
   "page_action": {
     "default_name": "Switch map",
-    "default_icon": "dummy-icon.png"
+    "default_icon": "dummy-icon.png",
+    "default_popup": "popup.html"
   },
   "permissions": [
     "tabs"
