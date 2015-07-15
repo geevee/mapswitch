@@ -2,10 +2,15 @@
   "manifest_version": 2,
 
   "name": "Mapswitch",
-  "description": "TODO",
-  "version": "0.0",
+  "description": "This extension enables quick switching between different map providers.",
+  "version": "0.9",
+  "icons": {"128": "dummy-icon.png"},
+  "author": "Evgeny Gerashchenko",
 
-  "background": { "scripts": ["lib/kotlin.js", "mapswitch.js", "background.js"] },
+  "background": {
+    "persisent": false,
+    "scripts": ["lib/kotlin.js", "mapswitch.js", "background.js"]
+  },
 
   "page_action": {
     "default_name": "Switch map",
