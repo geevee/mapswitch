@@ -12,8 +12,7 @@ native val chrome: dynamic
 
 fun main(args: Array<String>) {
     document.addEventListener("DOMContentLoaded", {
-        val queryInfo = js("({active: true})") // TODO avoid calling js()
-        chrome.tabs.query(queryInfo) {
+        chrome.tabs.query(object { val active = true }) {
             tabs ->
             val tab = tabs[0]
             val currentUrl = tab.url
@@ -38,10 +37,9 @@ private fun generateServicesList(coordinates: Coordinates, tabId: Int, services:
         listItemElement.innerHTML = "<a href=\"$newUrl\">${service.name}</a>"
         listItemElement.getElementsByTagName("a")[0].onClick {
             mouseEvent ->
-            val newUrlCopy = newUrl // TODO this is only for using newUrlCopy in js()
             with(mouseEvent) {
                 if (button == 0.toShort() && !altKey && !ctrlKey && !metaKey && !shiftKey && detail == 1) {
-                    chrome.tabs.update(tabId, js("({url: newUrlCopy})")) // TODO avoid calling js()
+                    chrome.tabs.update(tabId, object { val url = newUrl })
                     window.close()
                 }
             }
