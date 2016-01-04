@@ -8,7 +8,7 @@ import kotlin.browser.document
 import kotlin.browser.window
 import kotlin.dom.onClick
 
-native val chrome: dynamic
+@native val chrome: dynamic
 
 fun main(args: Array<String>) {
     document.addEventListener("DOMContentLoaded", {

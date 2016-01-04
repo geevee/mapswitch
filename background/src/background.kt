@@ -2,7 +2,7 @@ package ru.geevee.mapswitch.background
 
 import ru.geevee.mapswitch.detectServiceAndCoordinates
 
-native val chrome: dynamic
+@native val chrome: dynamic
 
 fun main(args: Array<String>) {
     chrome.tabs.onUpdated.addListener {

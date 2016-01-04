@@ -26,7 +26,7 @@ object GoogleMaps: MapService {
     override fun extractCoordinates(url: String): Coordinates? {
         if ("google." !in url || "maps" !in url) return null
 
-        val match = Regex("@([\\d.]+),([\\d.]+),([\\d.]+)z").matchAll(url).firstOrNull() ?: return null
+        val match = Regex("@([\\d.]+),([\\d.]+),([\\d.]+)z").findAll(url).firstOrNull() ?: return null
         val latitude = match.groups[1]!!.value
         val longitude = match.groups[2]!!.value
         val zoomLevel = match.groups[3]!!.value
@@ -48,7 +48,7 @@ object YandexMaps: MapService {
     override fun extractCoordinates(url: String): Coordinates? {
         if ("maps.yandex.ru" !in url) return null
 
-        val match = Regex("\\?ll=([\\d.]+)%2C([\\d.]+)&z=([\\d.]+)").matchAll(url).firstOrNull() ?: return null
+        val match = Regex("\\?ll=([\\d.]+)%2C([\\d.]+)&z=([\\d.]+)").findAll(url).firstOrNull() ?: return null
 
         val latitude = match.groups[2]!!.value
         val longitude = match.groups[1]!!.value
@@ -71,7 +71,7 @@ object OpenStreetMap: MapService {
     override fun extractCoordinates(url: String): Coordinates? {
         if ("openstreetmap.org" !in url) return null
 
-        val match = Regex("#map=([\\d.]+)\\/([\\d.]+)\\/([\\d.]+)").matchAll(url).firstOrNull() ?: return null
+        val match = Regex("#map=([\\d.]+)\\/([\\d.]+)\\/([\\d.]+)").findAll(url).firstOrNull() ?: return null
         val latitude = match.groups[2]!!.value
         val longitude = match.groups[3]!!.value
         val zoomLevel = match.groups[1]!!.value
@@ -93,7 +93,7 @@ object Wikimapia: MapService {
     override fun extractCoordinates(url: String): Coordinates? {
         if ("wikimapia.org" !in url) return null
 
-        val match = Regex("lat=([\\d.]+)&lon=([\\d.]+)&z=([\\d.]+)").matchAll(url).firstOrNull() ?: return null
+        val match = Regex("lat=([\\d.]+)&lon=([\\d.]+)&z=([\\d.]+)").findAll(url).firstOrNull() ?: return null
         val latitude = match.groups[1]!!.value
         val longitude = match.groups[2]!!.value
         val zoomLevel = match.groups[3]!!.value
